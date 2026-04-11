@@ -62,14 +62,14 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Talk about your brand",
+            "heading": "Built by players, for players.",
             "heading_size": "h1"
           }
         },
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>"
+            "text": "<p><br/>Trainers Travel secures group hotel blocks at competitive rates for Pokémon TCG tournaments across the country. We handle the research, negotiation, and booking so you can focus on what matters — competing. Every price is all-in. No hidden taxes. No surprise fees at checkout. Just a great hotel at a fair price, close to the venue.<br/><br/></p>"
           }
         }
       },
@@ -114,67 +114,14 @@
         "padding_bottom": 36
       }
     },
-    "collage": {
-      "type": "collage",
-      "blocks": {
-        "collection-0": {
-          "type": "collection",
-          "settings": {
-            "collection": ""
-          }
-        },
-        "product": {
-          "type": "product",
-          "settings": {
-            "product": "",
-            "second_image": false
-          }
-        },
-        "collection-1": {
-          "type": "collection",
-          "settings": {
-            "collection": ""
-          }
-        }
-      },
-      "block_order": [
-        "collection-0",
-        "product",
-        "collection-1"
-      ],
-      "settings": {
-        "heading": "Multimedia collage",
-        "heading_size": "h2",
-        "desktop_layout": "left",
-        "mobile_layout": "collage",
-        "card_styles": "product-card-wrapper",
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "video": {
-      "type": "video",
-      "settings": {
-        "heading": "",
-        "heading_size": "h1",
-        "enable_video_looping": false,
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "description": "",
-        "full_width": false,
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "multicolumn": {
       "type": "multicolumn",
       "blocks": {
         "column1": {
           "type": "column",
           "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "title": "All-in pricing",
+            "text": "<p>The price you see is the price you pay. We include all taxes and fees upfront — no surprises at checkout.<br/></p>",
             "link_label": "",
             "link": ""
           }
@@ -182,8 +129,8 @@
         "column2": {
           "type": "column",
           "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "title": "Close to the action",
+            "text": "<p>We hand-pick hotels with the best access to tournament venues. Skywalk connections, walking distance, proximity that matters.<br/><br/></p>",
             "link_label": "",
             "link": ""
           }
@@ -191,8 +138,8 @@
         "column3": {
           "type": "column",
           "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "title": "Hassle-free booking",
+            "text": "<p>Book in one click. We collect your guest info after purchase and handle everything with the hotel. Walk in, check in, play cards.</p>",
             "link_label": "",
             "link": ""
           }
@@ -225,8 +172,6 @@
     "image_banner",
     "rich_text",
     "featured_collection",
-    "collage",
-    "video",
     "multicolumn"
   ]
 }
