@@ -31,7 +31,7 @@
 }
 
 .tt-eh__back {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: rgba(242, 240, 235, 0.55);
   text-decoration: none;
   transition: color 0.15s;
@@ -41,7 +41,7 @@
 /* Status badges — same system as homepage cards */
 .tt-eh__badge {
   display: inline-block;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -78,14 +78,14 @@
 
 /* Date / city meta */
 .tt-eh__meta {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   color: rgba(242, 240, 235, 0.55);
   margin: 0 0 1.25rem;
 }
 
 /* Collection description — written in Shopify admin */
 .tt-eh__description {
-  font-size: 0.92rem;
+  font-size: 1rem;
   color: rgba(242, 240, 235, 0.75);
   line-height: 1.65;
   max-width: 680px;
@@ -110,7 +110,7 @@
 }
 
 .tt-eh__pricing-note {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   color: rgba(242, 240, 235, 0.65);
   margin: 0;
 }
@@ -120,7 +120,7 @@
 }
 
 .tt-eh__rooms-count {
-  font-size: 0.78rem;
+  font-size: 0.88rem;
   color: rgba(242, 240, 235, 0.4);
   margin: 0;
 }
@@ -147,7 +147,7 @@
 }
 
 .tt-eh__cs-label {
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -165,7 +165,7 @@
 }
 
 .tt-eh__cs-list li {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   color: rgba(242, 240, 235, 0.7);
   line-height: 1.45;
   padding-left: 14px;
@@ -192,7 +192,7 @@
 }
 
 .tt-eh__cs-cta p {
-  font-size: 0.85rem;
+  font-size: 0.93rem;
   color: rgba(242, 240, 235, 0.45);
   margin: 0;
   flex: 1;
@@ -201,7 +201,7 @@
 
 .tt-eh__cs-btn {
   display: inline-block;
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--tt-gold);
   text-decoration: none;
