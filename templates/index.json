@@ -1,24 +1,11 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "tt_home": {
       "type": "tt-home",
       "settings": {
-        "event_eyebrow": "Now booking",
-        "event_name": "Indianapolis Regional",
-        "event_subtitle": "Pokémon TCG Regional Championship — May 29–31, 2026",
-        "hotel_name": "Crowne Plaza Indianapolis Downtown Union Station",
-        "hotel_proximity": "Closest Skywalk-connected hotel to Halls H & I",
-        "product_queen": "indianapolis-regional-double-queen-room-2-night-stay",
-        "product_king": "indianapolis-regional-king-room-2-night-stay",
+        "events_menu": "event-collections",
+        "events_cta_text": "View Events",
+        "events_cta_link": "",
         "contact_email": "contact@trainerstravel.com",
         "social_x": "",
         "social_instagram": "",
@@ -26,7 +13,5 @@
       }
     }
   },
-  "order": [
-    "tt_home"
-  ]
+  "order": ["tt_home"]
 }
