@@ -1,142 +1,21 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "tt_hero": {
-      "type": "tt-hero",
+    "tt_home": {
+      "type": "tt-home",
       "settings": {
-        "eyebrow": "Trainers Travel",
-        "heading": "Travel smarter. Compete harder.",
-        "subheading": "Group hotel blocks for the competitive Pokémon community.",
-        "button_text": "Explore Events",
-        "button_link": "",
-        "secondary_button_text": "",
-        "secondary_button_link": ""
-      }
-    },
-    "rich_text": {
-      "type": "rich-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Built by players, for players.",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p><br/>Trainers Travel secures group hotel blocks at competitive rates for Pokémon TCG tournaments across the country. We handle the research, negotiation, and booking so you can focus on what matters — competing. Every price is all-in. No hidden taxes. No surprise fees at checkout. Just a great hotel at a fair price, close to the venue.<br/><br/></p>"
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text"
-      ],
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "scheme-1",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 0
-      }
-    },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "all",
-        "products_to_show": 8,
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": false,
-        "view_all_style": "solid",
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 28,
-        "padding_bottom": 36
-      }
-    },
-    "multicolumn": {
-      "type": "multicolumn",
-      "blocks": {
-        "column1": {
-          "type": "column",
-          "settings": {
-            "title": "All-in pricing",
-            "text": "<p>The price you see is the price you pay. We include all taxes and fees upfront — no surprises at checkout.<br/></p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column2": {
-          "type": "column",
-          "settings": {
-            "title": "Close to the action",
-            "text": "<p>We hand-pick hotels with the best access to tournament venues. Skywalk connections, walking distance, proximity that matters.<br/><br/></p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column3": {
-          "type": "column",
-          "settings": {
-            "title": "Hassle-free booking",
-            "text": "<p>Book in one click. We collect your guest info after purchase and handle everything with the hotel. Walk in, check in, play cards.</p>",
-            "link_label": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "column1",
-        "column2",
-        "column3"
-      ],
-      "settings": {
-        "title": "",
-        "heading_size": "h1",
-        "image_width": "third",
-        "image_ratio": "adapt",
-        "button_label": "",
-        "button_link": "",
-        "columns_desktop": 3,
-        "column_alignment": "center",
-        "background_style": "none",
-        "color_scheme": "scheme-1",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "event_eyebrow": "Now booking",
+        "event_name": "Indianapolis Regional",
+        "event_subtitle": "Pokémon TCG Regional Championship — May 29–31, 2026",
+        "hotel_name": "Crowne Plaza Indianapolis Downtown Union Station",
+        "hotel_proximity": "Closest Skywalk-connected hotel to Halls H & I",
+        "product_queen": "",
+        "product_king": "",
+        "contact_email": "contact@trainerstravel.com",
+        "social_x": "",
+        "social_instagram": "",
+        "social_discord": ""
       }
     }
   },
-  "order": [
-    "tt_hero",
-    "rich_text",
-    "featured_collection",
-    "multicolumn"
-  ]
+  "order": ["tt_home"]
 }
