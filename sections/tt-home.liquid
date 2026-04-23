@@ -45,7 +45,7 @@
         Making quality hotel stays near the venue accessible for every player.
       </p>
       <div class="tt-home__hero-actions">
-        <a href="{{ section.settings.events_cta_link | default: '/collections/all' }}" class="tt-home__btn tt-home__btn--primary">
+        <a href="{{ section.settings.events_cta_link | default: '#events' }}" class="tt-home__btn tt-home__btn--primary">
           {{ section.settings.events_cta_text | default: 'View Events' }}
         </a>
       </div>
@@ -59,7 +59,7 @@
       2. Section blocks — manual collection pickers, use these right now
       3. Empty state — only shows if neither is configured
   ═══════════════════════════════════════════════════════{%- endcomment -%}
-  <section class="tt-home__events">
+  <section class="tt-home__events" id="events">
     <div class="tt-home__container">
       <h2 class="tt-home__section-title">Upcoming events</h2>
 
@@ -212,6 +212,18 @@
           </dt>
           <dd class="tt-home__faq-a" id="faq-8" hidden>
             Trainers Travel is a hotel coordination service built for the competitive Pok&eacute;mon TCG community. We negotiate group room blocks at major events, then offer rooms at all-in prices that are typically cheaper than booking direct &mdash; with better terms and no hidden fees. Booking hotels for tournaments has always been a frustrating experience. We&rsquo;re fixing that.
+          </dd>
+        </div>
+
+        <div class="tt-home__faq-item">
+          <dt class="tt-home__faq-q">
+            <button class="tt-home__faq-btn" aria-expanded="false" aria-controls="faq-9">
+              How much do you profit per room?
+              <span class="tt-home__faq-icon" aria-hidden="true"></span>
+            </button>
+          </dt>
+          <dd class="tt-home__faq-a" id="faq-9" hidden>
+            Not much &mdash; by design. Our margin is around 4&ndash;5%, roughly $8 per room per night. That covers the time spent negotiating hotel contracts, managing group reservations, and keeping the site running. We publish the full math on each event page so you can see exactly where your money goes. This is a service for the community, not a profit machine.
           </dd>
         </div>
 

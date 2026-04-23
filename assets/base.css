@@ -3595,3 +3595,6 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
+
+/* Trainers Travel — compare-at price label */
+.tt-compare-label { display: block; font-size: 0.72rem; opacity: 0.7; margin-top: 2px; font-weight: 400; }
