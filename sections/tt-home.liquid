@@ -358,6 +358,28 @@
           "id": "event_city",
           "label": "City override",
           "info": "Shown on the card alongside the date. Example: New Orleans, LA"
+        },
+        {
+          "type": "select",
+          "id": "status_override",
+          "label": "Status override",
+          "info": "Force a specific badge. Leave blank to auto-detect from products.",
+          "options": [
+            { "value": "", "label": "Auto-detect" },
+            { "value": "available", "label": "Now Booking" },
+            { "value": "selling-fast", "label": "Few Rooms Left" },
+            { "value": "coming-soon", "label": "Coming Soon" },
+            { "value": "negotiating", "label": "In Negotiations" },
+            { "value": "unavailable", "label": "Unavailable" },
+            { "value": "sold-out", "label": "Sold Out" }
+          ],
+          "default": ""
+        },
+        {
+          "type": "text",
+          "id": "hide_after",
+          "label": "Auto-hide after date",
+          "info": "Format: YYYY-MM-DD. Card disappears automatically after this date. Example: 2026-06-01"
         }
       ]
     }

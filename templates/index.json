@@ -3,32 +3,28 @@
     "tt_home": {
       "type": "tt-home",
       "blocks": {
-        "indy-2026": {
-          "type": "event",
-          "settings": {
-            "collection": "indianapolis-regional-2026",
-            "event_date": "May 29\u201331, 2026",
-            "event_city": "Indianapolis, IN"
-          }
-        },
         "naic-2026": {
           "type": "event",
           "settings": {
             "collection": "naic-2026",
-            "event_date": "June 12\u201314, 2026",
-            "event_city": "New Orleans, LA"
+            "event_date": "June 12–14, 2026",
+            "event_city": "New Orleans, LA",
+            "status_override": "unavailable",
+            "hide_after": ""
           }
         },
         "worlds-2026": {
           "type": "event",
           "settings": {
             "collection": "worlds-2026",
-            "event_date": "August 28\u201330, 2026",
-            "event_city": "San Francisco, CA"
+            "event_date": "August 28–30, 2026",
+            "event_city": "San Francisco, CA",
+            "status_override": "negotiating",
+            "hide_after": ""
           }
         }
       },
-      "block_order": ["indy-2026", "naic-2026", "worlds-2026"],
+      "block_order": ["naic-2026", "worlds-2026"],
       "settings": {
         "events_menu": "event-collections",
         "events_cta_text": "View Events",
