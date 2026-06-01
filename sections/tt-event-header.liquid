@@ -3,13 +3,16 @@
   File: sections/tt-event-header.liquid
 
   Used in templates/collection.event.json.
-  Shows the collection title and description prominently at the top of an
-  event collection page. All event-specific details (hotel name, venue
-  proximity, dates, price comparison notes) live in the collection
-  description written in Shopify admin — no theme edits required.
+  Status badge logic: auto-detected from products, then overridden by
+  section.settings.status_override if set.
 
-  Also reads product tags to derive a status badge and starting price,
-  and surfaces an "all-in pricing" note inline.
+  Statuses handled:
+    available     — standard booking footer bar
+    selling-fast  — standard booking footer bar
+    sold-out      — sold out note in footer bar
+    coming-soon   — two-column "What's confirmed / What's coming" body
+    negotiating   — negotiations-in-progress body
+    unavailable   — full statement from collection description, no columns
 {% endcomment %}
 
 {{ 'section-tt-event-header.css' | asset_url | stylesheet_tag }}
@@ -53,8 +56,13 @@
   {%- assign eh_status_tag = 'available' -%}
 {%- endif -%}
 
-{%- comment -%}When the collection is empty, hide the Dawn product grid that follows{%- endcomment -%}
-{%- if col.products_count == 0 -%}
+{%- comment -%}Section setting override takes final priority{%- endcomment -%}
+{%- if section.settings.status_override != blank -%}
+  {%- assign eh_status_tag = section.settings.status_override -%}
+{%- endif -%}
+
+{%- comment -%}Hide the Dawn product grid when there's nothing to show{%- endcomment -%}
+{%- if col.products_count == 0 or eh_status_tag == 'unavailable' or eh_status_tag == 'negotiating' -%}
   <style>.shopify-section-{{ section.id }} ~ .shopify-section { display: none !important; }</style>
 {%- endif -%}
 
@@ -66,8 +74,10 @@
       <span class="tt-eh__badge tt-eh__badge--{{ eh_status_tag }}">
         {%- case eh_status_tag -%}
           {%- when 'sold-out' -%}Sold Out
-          {%- when 'selling-fast' -%}Selling Fast
+          {%- when 'selling-fast' -%}Few Rooms Left
           {%- when 'coming-soon' -%}Coming Soon
+          {%- when 'negotiating' -%}In Negotiations
+          {%- when 'unavailable' -%}Unavailable
           {%- else -%}Now Booking
         {%- endcase -%}
       </span>
@@ -83,29 +93,72 @@
       </p>
     {%- endif -%}
 
-    {%- if col.description != blank -%}
-      <div class="tt-eh__description">
-        {{ col.description }}
-      </div>
-    {%- endif -%}
+    {%- comment -%}═══ UNAVAILABLE — full statement, description only ═══{%- endcomment -%}
+    {%- if eh_status_tag == 'unavailable' -%}
 
-    {%- if eh_status_tag == 'coming-soon' -%}
+      {%- if col.description != blank -%}
+        <div class="tt-eh__description tt-eh__description--statement">
+          {{ col.description }}
+        </div>
+      {%- endif -%}
+      <div class="tt-eh__cs-cta">
+        <p>Questions? Reach out directly.</p>
+        <a href="mailto:{{ section.settings.notify_email | default: 'contact@trainerstravel.com' }}" class="tt-eh__cs-btn">
+          {{ section.settings.notify_email | default: 'contact@trainerstravel.com' }}
+        </a>
+      </div>
+
+    {%- comment -%}═══ NEGOTIATING — active negotiations body ═══{%- endcomment -%}
+    {%- elsif eh_status_tag == 'negotiating' -%}
+
+      {%- if col.description != blank -%}
+        <div class="tt-eh__description">
+          {{ col.description }}
+        </div>
+      {%- endif -%}
       <div class="tt-eh__coming-soon-body">
         <div class="tt-eh__cs-grid">
           <div class="tt-eh__cs-col">
             <p class="tt-eh__cs-label">What&rsquo;s confirmed</p>
             <ul class="tt-eh__cs-list">
-              {%- if eh_date_str != '' -%}
-                <li>{{ eh_date_str }}</li>
-              {%- elsif col.description contains 'June' or col.description contains 'July' or col.description contains 'August' or col.description contains 'May' -%}
-                {%- comment -%}date in description, skip — already shown above{%- endcomment -%}
-              {%- endif -%}
-              {%- if eh_city_str != '' -%}
-                <li>{{ eh_city_str }}</li>
-              {%- endif -%}
+              {%- if eh_date_str != '' -%}<li>{{ eh_date_str }}</li>{%- endif -%}
+              {%- if eh_city_str != '' -%}<li>{{ eh_city_str }}</li>{%- endif -%}
+              <li>We are actively negotiating hotel blocks</li>
+            </ul>
+          </div>
+          <div class="tt-eh__cs-col">
+            <p class="tt-eh__cs-label">What&rsquo;s coming</p>
+            <ul class="tt-eh__cs-list">
+              <li>Group hotel block outside the competition clause window</li>
+              <li>All-in pricing &mdash; taxes and fees included</li>
+              <li>Venue-proximity selection</li>
+              <li>We&rsquo;ll share news as it develops</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tt-eh__cs-cta">
+          <p>Follow us for updates or reach out directly.</p>
+          <a href="mailto:{{ section.settings.notify_email | default: 'contact@trainerstravel.com' }}" class="tt-eh__cs-btn">
+            {{ section.settings.notify_email | default: 'contact@trainerstravel.com' }}
+          </a>
+        </div>
+      </div>
+
+    {%- comment -%}═══ COMING SOON — standard two-column preview ═══{%- endcomment -%}
+    {%- elsif eh_status_tag == 'coming-soon' -%}
+
+      {%- if col.description != blank -%}
+        <div class="tt-eh__description">{{ col.description }}</div>
+      {%- endif -%}
+      <div class="tt-eh__coming-soon-body">
+        <div class="tt-eh__cs-grid">
+          <div class="tt-eh__cs-col">
+            <p class="tt-eh__cs-label">What&rsquo;s confirmed</p>
+            <ul class="tt-eh__cs-list">
+              {%- if eh_date_str != '' -%}<li>{{ eh_date_str }}</li>{%- endif -%}
+              {%- if eh_city_str != '' -%}<li>{{ eh_city_str }}</li>{%- endif -%}
               {%- if col.description != blank -%}
-                {%- assign desc_text = col.description | strip_html -%}
-                <li>{{ desc_text | truncate: 120 }}</li>
+                <li>{{ col.description | strip_html | truncate: 120 }}</li>
               {%- endif -%}
             </ul>
           </div>
@@ -122,11 +175,17 @@
         <div class="tt-eh__cs-cta">
           <p>We&rsquo;ll announce when rooms open. Follow us or reach out directly.</p>
           <a href="mailto:{{ section.settings.notify_email | default: 'contact@trainerstravel.com' }}" class="tt-eh__cs-btn">
-            contact@trainerstravel.com
+            {{ section.settings.notify_email | default: 'contact@trainerstravel.com' }}
           </a>
         </div>
       </div>
+
+    {%- comment -%}═══ AVAILABLE / SELLING FAST / SOLD OUT — pricing footer ═══{%- endcomment -%}
     {%- else -%}
+
+      {%- if col.description != blank -%}
+        <div class="tt-eh__description">{{ col.description }}</div>
+      {%- endif -%}
       <div class="tt-eh__footer-bar">
         {%- if eh_min_price != nil -%}
           <p class="tt-eh__pricing-note">
@@ -139,6 +198,7 @@
         {%- endif -%}
         <p class="tt-eh__rooms-count">{{ col.products_count }} room type{%- if col.products_count != 1 -%}s{%- endif -%} available</p>
       </div>
+
     {%- endif -%}
 
   </div>
@@ -152,9 +212,25 @@
   "limit": 1,
   "settings": [
     {
+      "type": "select",
+      "id": "status_override",
+      "label": "Status override",
+      "info": "Force a specific badge. Leave blank to auto-detect from products.",
+      "options": [
+        { "value": "", "label": "Auto-detect" },
+        { "value": "available", "label": "Now Booking" },
+        { "value": "selling-fast", "label": "Few Rooms Left" },
+        { "value": "coming-soon", "label": "Coming Soon" },
+        { "value": "negotiating", "label": "In Negotiations" },
+        { "value": "unavailable", "label": "Unavailable" },
+        { "value": "sold-out", "label": "Sold Out" }
+      ],
+      "default": ""
+    },
+    {
       "type": "text",
       "id": "notify_email",
-      "label": "Contact email (coming soon CTA)",
+      "label": "Contact email",
       "default": "contact@trainerstravel.com"
     }
   ]
