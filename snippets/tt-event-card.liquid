@@ -6,7 +6,22 @@
   - city: and event-date: product tags populate the meta line.
   - block.settings.event_date / event_city override the meta line when
     no products exist yet (coming soon events).
+  - block.settings.status_override forces a specific badge (skips auto-detect).
+  - block.settings.hide_after (YYYY-MM-DD) auto-hides the card after that date.
 {% endcomment %}
+
+{%- assign ec_should_render = true -%}
+
+{%- comment -%}Auto-hide if hide_after date has passed{%- endcomment -%}
+{%- if block != blank and block.settings.hide_after != blank -%}
+  {%- assign ec_now_ts = 'now' | date: '%s' | plus: 0 -%}
+  {%- assign ec_hide_ts = block.settings.hide_after | date: '%s' | plus: 0 -%}
+  {%- if ec_now_ts > ec_hide_ts -%}
+    {%- assign ec_should_render = false -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- if ec_should_render -%}
 
 {%- assign ec_min_price = nil -%}
 {%- assign ec_all_sold_out = true -%}
@@ -36,7 +51,7 @@
   {%- endfor -%}
 {%- endfor -%}
 
-{%- comment -%}Block overrides — used for coming soon events with no products{%- endcomment -%}
+{%- comment -%}Block overrides — date/city for events with no products yet{%- endcomment -%}
 {%- if ec_date_str == '' and block != blank and block.settings.event_date != blank -%}
   {%- assign ec_date_str = block.settings.event_date -%}
 {%- endif -%}
@@ -44,12 +59,18 @@
   {%- assign ec_city_str = block.settings.event_city -%}
 {%- endif -%}
 
+{%- comment -%}Auto-detect status from products{%- endcomment -%}
 {%- if col.products_count == 0 -%}
   {%- assign ec_status_tag = 'coming-soon' -%}
 {%- elsif ec_all_sold_out -%}
   {%- assign ec_status_tag = 'sold-out' -%}
 {%- elsif ec_status_tag == '' -%}
   {%- assign ec_status_tag = 'available' -%}
+{%- endif -%}
+
+{%- comment -%}Status override from block settings takes final priority{%- endcomment -%}
+{%- if block != blank and block.settings.status_override != blank -%}
+  {%- assign ec_status_tag = block.settings.status_override -%}
 {%- endif -%}
 
 <a href="{{ col.url }}" class="tt-home__event-card tt-home__event-card--{{ ec_status_tag }}">
@@ -59,6 +80,8 @@
         {%- when 'sold-out' -%}Sold Out
         {%- when 'selling-fast' -%}Few Rooms Left
         {%- when 'coming-soon' -%}Coming Soon
+        {%- when 'negotiating' -%}In Negotiations
+        {%- when 'unavailable' -%}Unavailable
         {%- else -%}Now Booking
       {%- endcase -%}
     </span>
@@ -77,13 +100,19 @@
     {%- endif -%}
   </div>
   <div class="tt-home__event-card-footer">
-    {%- if ec_min_price != nil and ec_status_tag != 'sold-out' and ec_status_tag != 'coming-soon' -%}
+    {%- if ec_min_price != nil and ec_status_tag != 'sold-out' and ec_status_tag != 'coming-soon' and ec_status_tag != 'unavailable' and ec_status_tag != 'negotiating' -%}
       <span class="tt-home__event-card-price">
         From {{ ec_min_price | money }} <span class="tt-home__event-card-price-note">all-in</span>
       </span>
     {%- endif -%}
     <span class="tt-home__event-card-cta">
-      {%- if ec_status_tag == 'coming-soon' -%}Notify me &rarr;{%- else -%}View rooms &rarr;{%- endif -%}
+      {%- case ec_status_tag -%}
+        {%- when 'unavailable' -%}More info &rarr;
+        {%- when 'coming-soon' or 'negotiating' -%}Notify me &rarr;
+        {%- else -%}View rooms &rarr;
+      {%- endcase -%}
     </span>
   </div>
 </a>
+
+{%- endif -%}
