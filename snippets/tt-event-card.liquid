@@ -8,11 +8,11 @@
     no products exist yet (coming soon events).
   - block.settings.status_override forces a specific badge (skips auto-detect).
   - block.settings.hide_after (YYYY-MM-DD) auto-hides the card after that date.
+  - Stub blocks (no collection) render from block.settings.title alone.
 {% endcomment %}
 
 {%- assign ec_should_render = true -%}
 
-{%- comment -%}Auto-hide if hide_after date has passed{%- endcomment -%}
 {%- if block != blank and block.settings.hide_after != blank -%}
   {%- assign ec_now_ts = 'now' | date: '%s' | plus: 0 -%}
   {%- assign ec_hide_ts = block.settings.hide_after | date: '%s' | plus: 0 -%}
@@ -30,28 +30,18 @@
 {%- assign ec_city_str = '' -%}
 
 {%- for product in col.products limit: 20 -%}
-  {%- if product.available -%}
-    {%- assign ec_all_sold_out = false -%}
-  {%- endif -%}
+  {%- if product.available -%}{%- assign ec_all_sold_out = false -%}{%- endif -%}
   {%- if ec_min_price == nil or product.price_min < ec_min_price -%}
     {%- assign ec_min_price = product.price_min -%}
   {%- endif -%}
   {%- for tag in product.tags -%}
-    {%- if tag == 'status:selling-fast' and ec_status_tag == '' -%}
-      {%- assign ec_status_tag = 'selling-fast' -%}
-    {%- elsif tag == 'status:coming-soon' and ec_status_tag == '' -%}
-      {%- assign ec_status_tag = 'coming-soon' -%}
-    {%- endif -%}
-    {%- if tag contains 'event-date:' and ec_date_str == '' -%}
-      {%- assign ec_date_str = tag | remove: 'event-date:' -%}
-    {%- endif -%}
-    {%- if tag contains 'city:' and ec_city_str == '' -%}
-      {%- assign ec_city_str = tag | remove: 'city:' | capitalize -%}
-    {%- endif -%}
+    {%- if tag == 'status:selling-fast' and ec_status_tag == '' -%}{%- assign ec_status_tag = 'selling-fast' -%}{%- endif -%}
+    {%- if tag == 'status:coming-soon' and ec_status_tag == '' -%}{%- assign ec_status_tag = 'coming-soon' -%}{%- endif -%}
+    {%- if tag contains 'event-date:' and ec_date_str == '' -%}{%- assign ec_date_str = tag | remove: 'event-date:' -%}{%- endif -%}
+    {%- if tag contains 'city:' and ec_city_str == '' -%}{%- assign ec_city_str = tag | remove: 'city:' | capitalize -%}{%- endif -%}
   {%- endfor -%}
 {%- endfor -%}
 
-{%- comment -%}Block overrides — date/city for events with no products yet{%- endcomment -%}
 {%- if ec_date_str == '' and block != blank and block.settings.event_date != blank -%}
   {%- assign ec_date_str = block.settings.event_date -%}
 {%- endif -%}
@@ -59,7 +49,6 @@
   {%- assign ec_city_str = block.settings.event_city -%}
 {%- endif -%}
 
-{%- comment -%}Auto-detect status from products{%- endcomment -%}
 {%- if col.products_count == 0 -%}
   {%- assign ec_status_tag = 'coming-soon' -%}
 {%- elsif ec_all_sold_out -%}
@@ -68,12 +57,10 @@
   {%- assign ec_status_tag = 'available' -%}
 {%- endif -%}
 
-{%- comment -%}Status override from block settings takes final priority{%- endcomment -%}
 {%- if block != blank and block.settings.status_override != blank -%}
   {%- assign ec_status_tag = block.settings.status_override -%}
 {%- endif -%}
 
-{%- comment -%}Stub block support — no collection yet, render from block settings only{%- endcomment -%}
 {%- assign ec_title = col.title -%}
 {%- assign ec_url = col.url -%}
 {%- if col == blank -%}
@@ -84,11 +71,17 @@
   {%- endif -%}
 {%- endif -%}
 
+{%- assign ec_needs_notify = false -%}
+{%- if ec_status_tag == 'coming-soon' or ec_status_tag == 'negotiating' -%}
+  {%- assign ec_needs_notify = true -%}
+{%- endif -%}
+
 {%- if ec_url != blank -%}
 <a href="{{ ec_url }}" class="tt-home__event-card tt-home__event-card--{{ ec_status_tag }}">
 {%- else -%}
 <div class="tt-home__event-card tt-home__event-card--{{ ec_status_tag }} tt-home__event-card--stub">
 {%- endif -%}
+
   <div class="tt-home__event-card-top">
     <span class="tt-home__event-badge tt-home__event-badge--{{ ec_status_tag }}">
       {%- case ec_status_tag -%}
@@ -101,6 +94,7 @@
       {%- endcase -%}
     </span>
   </div>
+
   <div class="tt-home__event-card-body">
     <p class="tt-home__event-card-title">{{ ec_title }}</p>
     {%- if ec_city_str != '' or ec_date_str != '' -%}
@@ -114,31 +108,30 @@
       <p class="tt-home__event-card-desc">{{ col.description | strip_html | truncate: 120 }}</p>
     {%- endif -%}
   </div>
+
   <div class="tt-home__event-card-footer">
     {%- if ec_min_price != nil and ec_status_tag != 'sold-out' and ec_status_tag != 'coming-soon' and ec_status_tag != 'unavailable' and ec_status_tag != 'negotiating' -%}
       <span class="tt-home__event-card-price">
         From {{ ec_min_price | money }} <span class="tt-home__event-card-price-note">all-in</span>
       </span>
     {%- endif -%}
-    {%- assign ec_mailto = 'mailto:contact@trainerstravel.com?subject=Notify me: ' | append: ec_title -%}
-    {%- if ec_url == blank -%}
-      {%- comment -%}Stub card — CTA must be its own link since the card has no URL{%- endcomment -%}
-      <a href="{{ ec_mailto }}" class="tt-home__event-card-cta tt-home__event-card-cta--link">
-        {%- case ec_status_tag -%}
-          {%- when 'unavailable' -%}More info &rarr;
-          {%- else -%}Notify me &rarr;
-        {%- endcase -%}
-      </a>
+
+    {%- if ec_needs_notify and ec_url == blank -%}
+      <button
+        type="button"
+        class="tt-home__event-card-cta tt-home__event-card-notify-btn"
+        data-notify-event="{{ ec_title | escape }}"
+        data-notify-date="{{ ec_date_str | escape }}"
+      >Notify me &rarr;</button>
+    {%- elsif ec_status_tag == 'unavailable' -%}
+      <span class="tt-home__event-card-cta">More info &rarr;</span>
+    {%- elsif ec_needs_notify -%}
+      <span class="tt-home__event-card-cta">Notify me &rarr;</span>
     {%- else -%}
-      <span class="tt-home__event-card-cta">
-        {%- case ec_status_tag -%}
-          {%- when 'unavailable' -%}More info &rarr;
-          {%- when 'coming-soon' or 'negotiating' -%}Notify me &rarr;
-          {%- else -%}View rooms &rarr;
-        {%- endcase -%}
-      </span>
+      <span class="tt-home__event-card-cta">View rooms &rarr;</span>
     {%- endif -%}
   </div>
+
 {%- if ec_url != blank -%}</a>{%- else -%}</div>{%- endif -%}
 
 {%- endif -%}

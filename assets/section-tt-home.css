@@ -118,6 +118,134 @@
   color: rgba(242, 240, 235, 0.35);
 }
 
+/* ─── Notify Me Modal ─────────────────────────────────────── */
+.tt-notify-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.tt-notify-modal[hidden] { display: none; }
+
+.tt-notify-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 20, 0.7);
+  backdrop-filter: blur(2px);
+}
+
+.tt-notify-modal__box {
+  position: relative;
+  background: var(--tt-navy);
+  border: 1px solid rgba(200, 169, 110, 0.25);
+  border-radius: 8px;
+  padding: 36px 32px 32px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.tt-notify-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: rgba(242, 240, 235, 0.4);
+  font-size: 1.4rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  transition: color 0.15s;
+}
+.tt-notify-modal__close:hover { color: var(--tt-off-white); }
+
+.tt-notify-modal__eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tt-gold);
+  margin: 0 0 0.5rem;
+}
+
+.tt-notify-modal__title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--tt-off-white);
+  margin: 0 0 0.6rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.tt-notify-modal__sub {
+  font-size: 0.9rem;
+  color: rgba(242, 240, 235, 0.55);
+  margin: 0 0 1.5rem;
+  line-height: 1.5;
+}
+
+.tt-notify-modal__row {
+  display: flex;
+  gap: 8px;
+}
+
+.tt-notify-modal__input {
+  flex: 1;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  color: var(--tt-off-white);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.tt-notify-modal__input::placeholder { color: rgba(242, 240, 235, 0.35); }
+.tt-notify-modal__input:focus { border-color: var(--tt-gold); }
+
+.tt-notify-modal__submit {
+  padding: 10px 20px;
+  background: var(--tt-gold);
+  color: var(--tt-navy);
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.tt-notify-modal__submit:hover { background: #d4b87c; }
+
+.tt-notify-modal__legal {
+  font-size: 0.75rem;
+  color: rgba(242, 240, 235, 0.3);
+  margin: 10px 0 0;
+}
+
+.tt-notify-modal__success {
+  text-align: center;
+  padding: 12px 0 4px;
+  font-size: 0.95rem;
+  color: rgba(242, 240, 235, 0.8);
+  line-height: 1.6;
+}
+.tt-notify-modal__success strong { color: var(--tt-gold); }
+
+/* Notify button inside card */
+.tt-home__event-card-notify-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
 /* ─── Compare-at label (global, applied via price.liquid) ─── */
 .tt-compare-label {
   display: block;

@@ -264,8 +264,42 @@
 
 </div>
 
+{%- comment -%}═══ Notify Me Modal ═══{%- endcomment -%}
+<div id="tt-notify-modal" class="tt-notify-modal" hidden role="dialog" aria-modal="true" aria-labelledby="tt-notify-title">
+  <div class="tt-notify-modal__backdrop"></div>
+  <div class="tt-notify-modal__box">
+    <button class="tt-notify-modal__close" aria-label="Close">&times;</button>
+    <p class="tt-notify-modal__eyebrow">Get notified</p>
+    <h2 class="tt-notify-modal__title" id="tt-notify-title"></h2>
+    <p class="tt-notify-modal__sub">Drop your email and we&rsquo;ll reach out as soon as hotel block details are confirmed.</p>
+    <form class="tt-notify-modal__form" id="tt-notify-form">
+      <input type="hidden" name="form_type" value="contact">
+      <input type="hidden" name="utf8" value="✓">
+      <input type="hidden" name="contact[subject]" id="tt-notify-subject" value="">
+      <input type="hidden" name="contact[body]" id="tt-notify-body" value="">
+      <div class="tt-notify-modal__row">
+        <input
+          type="email"
+          name="contact[email]"
+          id="tt-notify-email"
+          class="tt-notify-modal__input"
+          placeholder="your@email.com"
+          required
+          autocomplete="email"
+        >
+        <button type="submit" class="tt-notify-modal__submit">Notify me</button>
+      </div>
+      <p class="tt-notify-modal__legal">No spam. Just a heads-up when rooms open.</p>
+    </form>
+    <div class="tt-notify-modal__success" hidden>
+      <p>You&rsquo;re on the list. We&rsquo;ll reach out when rooms open for <strong id="tt-notify-success-event"></strong>.</p>
+    </div>
+  </div>
+</div>
+
 <script>
   (function () {
+    // FAQ accordion
     var btns = document.querySelectorAll('.tt-home__faq-btn');
     btns.forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -273,6 +307,59 @@
         var answer = document.getElementById(this.getAttribute('aria-controls'));
         this.setAttribute('aria-expanded', String(!expanded));
         answer.hidden = expanded;
+      });
+    });
+
+    // Notify me modal
+    var modal = document.getElementById('tt-notify-modal');
+    var modalTitle = modal.querySelector('.tt-notify-modal__title');
+    var subjectInput = document.getElementById('tt-notify-subject');
+    var bodyInput = document.getElementById('tt-notify-body');
+    var emailInput = document.getElementById('tt-notify-email');
+    var form = document.getElementById('tt-notify-form');
+    var successEl = modal.querySelector('.tt-notify-modal__success');
+    var successEventEl = document.getElementById('tt-notify-success-event');
+
+    function openModal(eventName) {
+      modalTitle.textContent = eventName;
+      subjectInput.value = 'Notify me: ' + eventName;
+      bodyInput.value = 'Please add me to the waitlist for ' + eventName + '.';
+      successEl.hidden = true;
+      form.hidden = false;
+      emailInput.value = '';
+      modal.hidden = false;
+      requestAnimationFrame(function () { emailInput.focus(); });
+    }
+
+    function closeModal() { modal.hidden = true; }
+
+    document.querySelectorAll('.tt-home__event-card-notify-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        openModal(this.getAttribute('data-notify-event'));
+      });
+    });
+
+    modal.querySelector('.tt-notify-modal__backdrop').addEventListener('click', closeModal);
+    modal.querySelector('.tt-notify-modal__close').addEventListener('click', closeModal);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var eventName = modalTitle.textContent;
+      var data = new FormData(form);
+      fetch('/contact', {
+        method: 'POST',
+        body: data,
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      }).then(function () {
+        successEventEl.textContent = eventName;
+        form.hidden = true;
+        successEl.hidden = false;
+      }).catch(function () {
+        successEventEl.textContent = eventName;
+        form.hidden = true;
+        successEl.hidden = false;
       });
     });
   })();
