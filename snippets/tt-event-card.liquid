@@ -73,7 +73,22 @@
   {%- assign ec_status_tag = block.settings.status_override -%}
 {%- endif -%}
 
-<a href="{{ col.url }}" class="tt-home__event-card tt-home__event-card--{{ ec_status_tag }}">
+{%- comment -%}Stub block support — no collection yet, render from block settings only{%- endcomment -%}
+{%- assign ec_title = col.title -%}
+{%- assign ec_url = col.url -%}
+{%- if col == blank -%}
+  {%- assign ec_title = block.settings.title -%}
+  {%- assign ec_url = '' -%}
+  {%- if ec_status_tag == '' or ec_status_tag == 'available' -%}
+    {%- assign ec_status_tag = 'coming-soon' -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- if ec_url != blank -%}
+<a href="{{ ec_url }}" class="tt-home__event-card tt-home__event-card--{{ ec_status_tag }}">
+{%- else -%}
+<div class="tt-home__event-card tt-home__event-card--{{ ec_status_tag }} tt-home__event-card--stub">
+{%- endif -%}
   <div class="tt-home__event-card-top">
     <span class="tt-home__event-badge tt-home__event-badge--{{ ec_status_tag }}">
       {%- case ec_status_tag -%}
@@ -87,7 +102,7 @@
     </span>
   </div>
   <div class="tt-home__event-card-body">
-    <p class="tt-home__event-card-title">{{ col.title }}</p>
+    <p class="tt-home__event-card-title">{{ ec_title }}</p>
     {%- if ec_city_str != '' or ec_date_str != '' -%}
       <p class="tt-home__event-card-meta">
         {%- if ec_city_str != '' -%}{{ ec_city_str }}{%- endif -%}
@@ -113,6 +128,6 @@
       {%- endcase -%}
     </span>
   </div>
-</a>
+{%- if ec_url != blank -%}</a>{%- else -%}</div>{%- endif -%}
 
 {%- endif -%}

@@ -7,6 +7,7 @@
           "type": "event",
           "settings": {
             "collection": "naic-2026",
+            "title": "",
             "event_date": "June 12–14, 2026",
             "event_city": "New Orleans, LA",
             "status_override": "unavailable",
@@ -17,14 +18,102 @@
           "type": "event",
           "settings": {
             "collection": "worlds-2026",
+            "title": "",
             "event_date": "August 28–30, 2026",
             "event_city": "San Francisco, CA",
             "status_override": "negotiating",
             "hide_after": ""
           }
+        },
+        "baltimore-2026": {
+          "type": "event",
+          "settings": {
+            "collection": "",
+            "title": "Baltimore Regional 2026",
+            "event_date": "September 18–20, 2026",
+            "event_city": "Baltimore, MD",
+            "status_override": "coming-soon",
+            "hide_after": ""
+          }
+        },
+        "louisville-2026": {
+          "type": "event",
+          "settings": {
+            "collection": "",
+            "title": "Louisville Regional 2026",
+            "event_date": "October 9–11, 2026",
+            "event_city": "Louisville, KY",
+            "status_override": "coming-soon",
+            "hide_after": ""
+          }
+        },
+        "las-vegas-2026": {
+          "type": "event",
+          "settings": {
+            "collection": "",
+            "title": "Las Vegas Regional 2026",
+            "event_date": "December 4–6, 2026",
+            "event_city": "Las Vegas, NV",
+            "status_override": "coming-soon",
+            "hide_after": ""
+          }
+        },
+        "milwaukee-2027": {
+          "type": "event",
+          "settings": {
+            "collection": "",
+            "title": "Milwaukee Regional 2027",
+            "event_date": "April 16–18, 2027",
+            "event_city": "Milwaukee, WI",
+            "status_override": "coming-soon",
+            "hide_after": ""
+          }
+        },
+        "san-diego-2027": {
+          "type": "event",
+          "settings": {
+            "collection": "",
+            "title": "San Diego Regional 2027",
+            "event_date": "May 28–30, 2027",
+            "event_city": "San Diego, CA",
+            "status_override": "coming-soon",
+            "hide_after": ""
+          }
+        },
+        "chicago-2027": {
+          "type": "event",
+          "settings": {
+            "collection": "",
+            "title": "Chicago International 2027",
+            "event_date": "June 18–20, 2027",
+            "event_city": "Chicago, IL",
+            "status_override": "coming-soon",
+            "hide_after": ""
+          }
+        },
+        "worlds-2027": {
+          "type": "event",
+          "settings": {
+            "collection": "",
+            "title": "World Championship 2027",
+            "event_date": "TBD",
+            "event_city": "TBD",
+            "status_override": "coming-soon",
+            "hide_after": ""
+          }
         }
       },
-      "block_order": ["naic-2026", "worlds-2026"],
+      "block_order": [
+        "naic-2026",
+        "worlds-2026",
+        "baltimore-2026",
+        "louisville-2026",
+        "las-vegas-2026",
+        "milwaukee-2027",
+        "san-diego-2027",
+        "chicago-2027",
+        "worlds-2027"
+      ],
       "settings": {
         "events_menu": "event-collections",
         "events_cta_text": "View Events",

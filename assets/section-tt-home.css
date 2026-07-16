@@ -184,6 +184,14 @@
   opacity: 0.65;
 }
 
+.tt-home__event-card--stub {
+  cursor: default;
+}
+.tt-home__event-card--stub:hover {
+  border-color: var(--tt-border);
+  box-shadow: none;
+}
+
 .tt-home__event-card-top {
   padding: 14px 16px 0;
 }
@@ -288,6 +296,14 @@
   font-weight: 700;
   color: var(--tt-gold);
   white-space: nowrap;
+}
+
+/* Season note */
+.tt-home__season-note {
+  margin: 20px 0 0;
+  font-size: 0.85rem;
+  color: var(--tt-mid);
+  opacity: 0.7;
 }
 
 /* Empty state */
