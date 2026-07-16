@@ -88,13 +88,17 @@
             {%- for block in section.blocks -%}
               {%- if block.type == 'event' -%}
                 {%- assign col = collections[block.settings.collection] -%}
-                {%- if col == blank -%}{%- continue -%}{%- endif -%}
+                {%- if col == blank and block.settings.title == blank -%}{%- continue -%}{%- endif -%}
                 {%- render 'tt-event-card', col: col, block: block -%}
               {%- endif -%}
             {%- endfor -%}
           {%- endif -%}
 
         </div>
+
+        <p class="tt-home__season-note">
+          2027 season schedule announced &mdash; more hotel blocks coming as negotiations develop.
+        </p>
 
       {%- else -%}
         <div class="tt-home__events-empty">
@@ -346,6 +350,12 @@
           "id": "collection",
           "label": "Event collection",
           "info": "Pick an event collection. The card title, description, pricing, and status badge are all read from the collection automatically."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Event name override",
+          "info": "Used when no collection exists yet. Example: Baltimore Regional 2026"
         },
         {
           "type": "text",
