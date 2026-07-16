@@ -3,17 +3,6 @@
     "tt_home": {
       "type": "tt-home",
       "blocks": {
-        "naic-2026": {
-          "type": "event",
-          "settings": {
-            "collection": "naic-2026",
-            "title": "",
-            "event_date": "June 12–14, 2026",
-            "event_city": "New Orleans, LA",
-            "status_override": "unavailable",
-            "hide_after": ""
-          }
-        },
         "worlds-2026": {
           "type": "event",
           "settings": {
@@ -104,7 +93,6 @@
         }
       },
       "block_order": [
-        "naic-2026",
         "worlds-2026",
         "baltimore-2026",
         "louisville-2026",
