@@ -292,6 +292,13 @@
   white-space: nowrap;
 }
 
+.tt-home__event-card-cta--link {
+  text-decoration: none;
+}
+.tt-home__event-card-cta--link:hover {
+  text-decoration: underline;
+}
+
 /* Season note */
 .tt-home__season-note {
   margin: 20px 0 0;

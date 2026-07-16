@@ -120,13 +120,24 @@
         From {{ ec_min_price | money }} <span class="tt-home__event-card-price-note">all-in</span>
       </span>
     {%- endif -%}
-    <span class="tt-home__event-card-cta">
-      {%- case ec_status_tag -%}
-        {%- when 'unavailable' -%}More info &rarr;
-        {%- when 'coming-soon' or 'negotiating' -%}Notify me &rarr;
-        {%- else -%}View rooms &rarr;
-      {%- endcase -%}
-    </span>
+    {%- assign ec_mailto = 'mailto:contact@trainerstravel.com?subject=Notify me: ' | append: ec_title -%}
+    {%- if ec_url == blank -%}
+      {%- comment -%}Stub card — CTA must be its own link since the card has no URL{%- endcomment -%}
+      <a href="{{ ec_mailto }}" class="tt-home__event-card-cta tt-home__event-card-cta--link">
+        {%- case ec_status_tag -%}
+          {%- when 'unavailable' -%}More info &rarr;
+          {%- else -%}Notify me &rarr;
+        {%- endcase -%}
+      </a>
+    {%- else -%}
+      <span class="tt-home__event-card-cta">
+        {%- case ec_status_tag -%}
+          {%- when 'unavailable' -%}More info &rarr;
+          {%- when 'coming-soon' or 'negotiating' -%}Notify me &rarr;
+          {%- else -%}View rooms &rarr;
+        {%- endcase -%}
+      </span>
+    {%- endif -%}
   </div>
 {%- if ec_url != blank -%}</a>{%- else -%}</div>{%- endif -%}
 
